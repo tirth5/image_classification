@@ -1,0 +1,81 @@
+<html>
+<head>
+<title>Python Flask Upload and display image</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />        
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<style>
+    body{
+        padding: 0;
+        margin: 0;
+        background-color: #d2e4f8;
+    }
+    h1{
+        background-color: #00ABE4;
+        padding-bottom:2rem;
+        padding-top:2rem;
+        margin-top: 0;
+    }
+    .row{
+        width: 50%;
+        margin: 0 auto;
+    }
+    .form-control{
+        width: 40%;
+        border: 2px solid black;
+    }
+    form{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .btn{
+        width: 80px;
+        margin-left: 2rem;
+    }
+    img{
+        max-width: 40vw;
+        max-height: 50vh;
+        
+    }
+    .img{
+        width: 50%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+    }
+    .btn{
+        background-color: #00ABE4;
+    }
+    .btn:hover{
+        background-color: #00759c;
+    }
+</style>
+</head>
+<body>
+
+<h1 align="center">CIFAR-10 Image Classification</h1>
+<div class="container">
+    <h2 align="center">Choose Image File</h2>
+    <div class="row">
+        <form method="post" action="/" enctype="multipart/form-data">
+            <input type="file" name="file" class="form-control" autocomplete="off" required>
+            <input type="submit" value="Classify" class="btn btn-info">
+        </form>
+    </div>
+    {% if filename %}
+        <div>
+            <div class="img">
+                <img src="{{ url_for('display_image', filename=filename) }}">
+            </div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              {% for message in messages %}
+                <h3 align="center" style="font-weight: bold;">{{ message }}</h3>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>
